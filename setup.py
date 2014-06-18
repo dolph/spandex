@@ -8,7 +8,7 @@ setuptools.setup(
     author='Dolph Mathews',
     author_email='dolph.mathews@gmail.com',
     url='http://github.com/dolph/spandex',
-    install_requires=[''],
+    install_requires=['requests'],
     entry_points={'console_scripts': ['spandex = spandex.cli:main']},
     classifiers=[
         'Development Status :: 5 - Production/Stable',

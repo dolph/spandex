@@ -1,0 +1,38 @@
+import base64
+import json
+import time
+
+import requests
+
+
+ENDPOINT = 'http://logstash.openstack.org/api'
+
+
+def _GET(path):
+    r = requests.get(ENDPOINT + path)
+    try:
+        return r.json()
+    except Exception:
+        raise SystemExit(r.text)
+
+
+def _encode(q):
+    """Encode a JSON dict for inclusion in a URL."""
+    return base64.b64encode(json.dumps(q))
+
+
+def _unix_time_in_microseconds():
+    return int(time.time() * 1000)
+
+
+def query(q):
+    search = {
+        'search': ' '.join(q),
+        'fields': [],
+        'offset': 0,
+        'timeframe': str(14 * 86400),
+        'graphmode': 'count',
+        'time': {
+            'user_interval': 0},
+        'stamp': _unix_time_in_microseconds()}
+    return _GET('/search/%s' % _encode(search))
