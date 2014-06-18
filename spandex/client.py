@@ -27,7 +27,7 @@ def _unix_time_in_microseconds():
 
 def query(q):
     search = {
-        'search': ' '.join(q),
+        'search': q,
         'fields': [],
         'offset': 0,
         'timeframe': str(14 * 86400),

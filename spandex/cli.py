@@ -2,6 +2,8 @@ import argparse
 import itertools
 import json
 
+import yaml
+
 from spandex import client
 
 
@@ -46,7 +48,12 @@ def analyze_attributes(attributes):
 
 
 def query(args):
-    r = client.query(q=args.query)
+    with open(args.query_file.name) as f:
+        query_file = yaml.load(f.read())
+        query = query_file['query']
+
+    r = client.query(q=query)
+    print 'total hits:', r['hits']['total']
 
     attributes = {}
     for hit in r['hits']['hits']:
@@ -64,6 +71,7 @@ def query(args):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('query', type=str, nargs='+')
+    parser.add_argument(
+        '--query-file', dest='query_file', type=argparse.FileType('r'))
     args = parser.parse_args()
     query(args)
