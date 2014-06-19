@@ -25,12 +25,12 @@ def _unix_time_in_microseconds():
     return int(time.time() * 1000)
 
 
-def query(q):
+def query(q, days):
     search = {
         'search': q,
         'fields': [],
         'offset': 0,
-        'timeframe': str(14 * 86400),
+        'timeframe': str(days * 86400),
         'graphmode': 'count',
         'time': {
             'user_interval': 0},

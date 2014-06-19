@@ -52,7 +52,7 @@ def query(args):
         query_file = yaml.load(f.read())
         query = query_file['query']
 
-    r = client.query(q=query)
+    r = client.query(q=query, days=args.days)
     print 'total hits:', r['hits']['total']
 
     attributes = {}
@@ -65,13 +65,22 @@ def query(args):
     analysis = analyze_attributes(attributes)
     for attribute, results in analysis.iteritems():
         print attribute
-        for percentage, value in itertools.islice(results, None, 3):
+        for percentage, value in itertools.islice(results, None, args.values):
+            if isinstance(value, list):
+                value = ' '.join(unicode(x) for x in value)
             print '  %d%% %s' % (percentage, value)
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--query-file', dest='query_file', type=argparse.FileType('r'))
+        '--query-file', dest='query_file', type=argparse.FileType('r'),
+        help='Path to an elastic-recheck YAML query file.')
+    parser.add_argument(
+        '--values', type=int, default=5,
+        help='Maximum number of values to show for each attribute.')
+    parser.add_argument(
+        '--days', type=float, default=14,
+        help='Timespan to query, in days (may be a decimal).')
     args = parser.parse_args()
     query(args)
