@@ -10,6 +10,12 @@ ENDPOINT = 'http://logstash.openstack.org/api'
 
 def _GET(path):
     r = requests.get(ENDPOINT + path)
+
+    if r.status_code != requests.codes.ok:
+        print 'Got HTTP %s, retrying...' % r.status_code
+        # retry once
+        r = requests.get(ENDPOINT + path)
+
     try:
         return r.json()
     except Exception:
