@@ -18,10 +18,10 @@ def dump_attributes(attributes):
         for value_hash, hits in values.iteritems():
             if hits > 1:
                 if not printed_attribute:
-                    print attribute
+                    print(attribute)
                     printed_attribute = True
                 value = json.loads(value_hash)
-                print '  %d%% %s' % (100.0 * hits / total_hits, value)
+                print('  %d%% %s' % (100.0 * hits / total_hits, value))
         if printed_attribute:
             print
 
@@ -53,7 +53,7 @@ def query(args):
         query = query_file['query']
 
     r = client.query(q=query, days=args.days)
-    print 'total hits:', r['hits']['total']
+    print('total hits:', r['hits']['total'])
 
     attributes = {}
     for hit in r['hits']['hits']:
@@ -64,11 +64,11 @@ def query(args):
 
     analysis = analyze_attributes(attributes)
     for attribute, results in analysis.iteritems():
-        print attribute
+        print(attribute)
         for percentage, value in itertools.islice(results, None, args.values):
             if isinstance(value, list):
                 value = ' '.join(unicode(x) for x in value)
-            print '  %d%% %s' % (percentage, value)
+            print('  %d%% %s' % (percentage, value))
 
 
 def main():
