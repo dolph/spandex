@@ -53,7 +53,7 @@ def query(args):
         query = query_file['query']
 
     r = client.query(q=query, days=args.days)
-    print('total hits:', r['hits']['total'])
+    print('total hits: %s' % r['hits']['total'])
 
     attributes = {}
     for hit in r['hits']['hits']:
