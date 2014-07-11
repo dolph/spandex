@@ -9,6 +9,7 @@ setuptools.setup(
     author_email='dolph.mathews@gmail.com',
     url='http://github.com/dolph/spandex',
     install_requires=['requests', 'pyyaml'],
+    packages=setuptools.find_packages(),
     entry_points={'console_scripts': ['spandex = spandex.cli:main']},
     classifiers=[
         'Development Status :: 5 - Production/Stable',
