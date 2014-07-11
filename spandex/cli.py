@@ -74,7 +74,7 @@ def query(args):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--query-file', dest='query_file', type=argparse.FileType('r'),
+        'query_file', type=argparse.FileType('r'),
         help='Path to an elastic-recheck YAML query file.')
     parser.add_argument(
         '--values', type=int, default=5,
