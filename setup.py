@@ -3,8 +3,8 @@ import setuptools
 
 setuptools.setup(
     name='spandex',
-    version='0.0.0',
-    description='Do something useful with elasticsearch.',
+    version='1.0.0',
+    description='Do something useful with elasticsearch + logstash.',
     author='Dolph Mathews',
     author_email='dolph.mathews@gmail.com',
     url='http://github.com/dolph/spandex',
