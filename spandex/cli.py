@@ -7,6 +7,17 @@ import yaml
 from spandex import client
 
 
+LESS_THAN_USEFUL_ATTRIBUTES = [
+    'build_master',
+    'build_patchset',
+    'build_ref',
+    'build_short_uuid',
+    'build_uuid',
+    'error_pr',
+    'host',
+    'received_at',
+    'type',
+]
 
 
 def analyze_attributes(attributes):
@@ -47,6 +58,10 @@ def query(args):
 
     analysis = analyze_attributes(attributes)
     for attribute, results in analysis.iteritems():
+        if not args.verbose and attribute in LESS_THAN_USEFUL_ATTRIBUTES:
+            # skip less-than-useful attributes to reduce noise in the report
+            continue
+
         print(attribute)
         for percentage, value in itertools.islice(results, None, args.values):
             if isinstance(value, list):
@@ -65,5 +80,8 @@ def main():
     parser.add_argument(
         '--days', type=float, default=14,
         help='Timespan to query, in days (may be a decimal).')
+    parser.add_argument(
+        '--verbose', action='store_true',
+        help='Report on additional query metadata.')
     args = parser.parse_args()
     query(args)
