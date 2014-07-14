@@ -7,23 +7,6 @@ import yaml
 from spandex import client
 
 
-def dump_attributes(attributes):
-    for attribute, values in attributes.iteritems():
-        if attribute[0] == '@':
-            # skip meta attributes
-            continue
-
-        printed_attribute = False
-        total_hits = sum(values.values())
-        for value_hash, hits in values.iteritems():
-            if hits > 1:
-                if not printed_attribute:
-                    print(attribute)
-                    printed_attribute = True
-                value = json.loads(value_hash)
-                print('  %d%% %s' % (100.0 * hits / total_hits, value))
-        if printed_attribute:
-            print
 
 
 def analyze_attributes(attributes):
