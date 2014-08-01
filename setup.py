@@ -15,7 +15,7 @@ import setuptools
 
 setuptools.setup(
     name='spandex',
-    version='1.1.1',
+    version='1.1.2',
     description='Execute elastic-recheck query files and analyze the results.',
     author='Dolph Mathews',
     author_email='dolph.mathews@gmail.com',
