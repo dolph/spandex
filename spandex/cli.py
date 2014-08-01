@@ -21,6 +21,7 @@ from spandex import client
 
 LESS_THAN_USEFUL_ATTRIBUTES = [
     'build_master',
+    'build_newrev',
     'build_patchset',
     'build_ref',
     'build_short_uuid',
